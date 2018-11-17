@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tik tok</title>
+    <style>
+        *{
+            box-sizing: border-box; 
+            margin: 0;
+        }
+        body{
+            background: #545252;
+        }
+        .clock{
+            width: 20rem;
+            height: 20rem;
+            margin: 20px auto 0; 
+            border: 20px solid #fff;
+            border-radius: 50%;
+            padding: 30px;
+            position: relative;
+        }
+        .clock-face{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: rotate(90deg) translateY(-3px); 
+        }
+        .hand{
+            width: 50%;
+            height: 3px;
+            background: rgba(0,0,0,0.3);
+            top: 50%;
+            position: absolute;
+            /* transition: all 0.3s; */
+            transform-origin: right;
+        }
+        .hour-hand{
+            background: red;
+        }
+        .minute-hand{
+            background: #fff;
+        }
+        .second-hand{
+            background: #000;
+        }
+        .clock-dots{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform: rotate(90deg)
+        }
+        .dots{
+            width: 100%;
+            height: 1px;
+            background: transparent;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin: auto;
+        }
+        .dots:after, .dots:before{
+            position: absolute;
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: #000;
+            border-radius: 50%;
+            right: 0;
+            margin: -3px -12px 0 0;
+        }
+        .dots:before{
+            left: 0;
+            right: auto;
+            margin: -3px 0 0 -12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-dots">
+            <div class="dots"></div>
+            <div class="dots" style="transform: rotate(30deg);"></div>
+            <div class="dots" style="transform: rotate(60deg);"></div>
+            <div class="dots" style="transform: rotate(90deg);"></div>
+            <div class="dots" style="transform: rotate(120deg);"></div>
+            <div class="dots" style="transform: rotate(150deg);"></div>
+        </div>
+        <div class="clock-face">
+            <div class="hour-hand hand"></div>
+            <div class="minute-hand hand"></div>
+            <div class="second-hand hand"></div>
+        </div>
+    </div>
+
+    <script>
+        var secondKata = document.querySelector('.second-hand');
+        var minuteKata = document.querySelector('.minute-hand');
+        var hourKata = document.querySelector('.hour-hand');
+
+        function setDate(){
+            const now = new Date();
+            
+            const second = now.getSeconds(); 
+            const secondDegree = ((second / 60) * 360);
+            secondKata.style.transform = `rotate(${secondDegree}deg)`;
+
+            const minute = now.getMinutes(); 
+            const minuteDegree = ((minute / 60) * 360);
+            minuteKata.style.transform = `rotate(${minuteDegree}deg)`;
+
+            const hour = now.getHours(); 
+            const hourDegree = ((hour / 12) * 360);
+            hourKata.style.transform = `rotate(${hourDegree}deg)`;
+            
+            
+        }
+        setInterval(setDate, 1000);
+
+
+    </script>
+</body>
+</html>
+
+<!-- 
+60s - 360deg              1m - 6deg
+30s - 180deg              1m - 3deg
+15s - 90deg              1m - 1.5deg
+30s - 1m     
+-->
