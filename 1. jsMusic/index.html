@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .keys {
+            padding: 0;
+            margin: 0;
+            list-style: none; 
+            display: flex; 
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .key {
+            background: tomato;
+            padding: 25px; 
+            margin-top: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 3em;
+            text-align: center;
+            transition: all 0.5s;
+            border: solid 1px #fff;
+        }
+        .playing{
+            background: yellow;
+            transform: scale(1.1)
+        }
+    </style>
+</head>
+
+<body> 
+    <div class="keys">
+        <div class="key" data-key="65">A</div>
+        <div class="key" data-key="66">B</div>
+        <div class="key" data-key="67">C</div>
+        <div class="key" data-key="68">D</div>
+        <div class="key" data-key="69">E</div>
+    </div>
+    <audio src="A1.mp3" data-key="65"></audio>
+    <audio src="A2.mp3" data-key="66"></audio>
+    <audio src="A3.mp3" data-key="67"></audio>
+    <audio src="A4.mp3" data-key="68"></audio>
+    <audio src="A5.mp3" data-key="69"></audio>
+</body>
+    <script>
+        var keyBtn = document.querySelectorAll('.key');   
+        keyBtn.forEach(key => key.addEventListener('click', playTheMusic)); 
+
+        window.addEventListener('keydown', playTheMusic);     
+
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition)); 
+
+        function playTheMusic(e){
+            if(e instanceof MouseEvent){
+                var keyCode = this.getAttribute("data-key");
+            } else{
+                var keyCode = e.keyCode;
+            }
+            
+            const player = document.querySelector(`audio[data-key="${keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${keyCode}"]`);
+
+            if(!player && !key){ 
+                console.log('tomar sob chai???');                
+                return; 
+            } else{
+                key.classList.add('playing');
+                player.currentTime = 0;
+                player.play();
+            } 
+        }
+
+        function removeTransition(e){
+            if(e.propertyName != 'transform') return;
+            this.classList.remove('playing'); 
+        }
+
+        
+    </script>
+</html>
