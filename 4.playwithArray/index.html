@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var investors = [
+            {first: 'kalu', last: 'saha', year: 1885, passed: 2000},
+            {first: 'vulu', last: 'saha', year: 1895, passed: 2000},
+            {first: 'lalu', last: 'saha', year: 1900, passed: 2000},
+            {first: 'nepa', last: 'saha', year: 1875, passed: 2000},
+            {first: 'potla', last: 'saha', year: 1888, passed: 2000}
+        ]
+
+        // return new array of obove 1885;
+        const fifteen = investors.filter(function(investor){            
+            if(investor.year >= 1885){
+                return true;
+            }
+        })
+        console.table(fifteen);
+
+        // sort by birthdate, oldest to youngest
+        const sortByBirthdate = investors.sort((a,b) => {
+            return a.year - b.year;            
+        })
+        console.table(sortByBirthdate);
+
+        // total year of all member
+        const totalAge = investors.reduce((total, current) => {
+            return total + (current.passed - current.year);
+        },0);
+        console.log(totalAge);
+        
+
+
+
+        
+    </script>
+</body>
+</html>

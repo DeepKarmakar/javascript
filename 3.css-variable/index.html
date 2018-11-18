@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root{
+            --base: #a37d13;
+            --spacing: 20px;
+            --blur: 10px;
+        }
+        img{
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            spacing: <input type="range" name="spacing" max="25" min="10" class="form-controll" data-sizing="px">  
+        </label>
+    </div>
+    <div>
+        <label>
+            spacing: <input type="range" name="blur" max="10" min="0" class="form-controll" data-sizing="px"> 
+        </label>
+    </div>
+    <div>
+        <label>
+            spacing: <input type="color" class="form-controll" name="base">  
+        </label>
+    </div>
+    <hr>
+    <div>
+        <img src="img.jpg" alt="img">
+    </div>
+
+    <!--  
+        more customization and export after finish.
+    -->
+    
+    <script>
+        var inputs = document.querySelectorAll('.form-controll');
+        
+        function handleUpdate(){
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        inputs.forEach(sdfglh => sdfglh.addEventListener('change', handleUpdate));
+        inputs.forEach(sdfglh => sdfglh.addEventListener('mousemove', handleUpdate));
+
+    </script>
+</body>
+</html>
