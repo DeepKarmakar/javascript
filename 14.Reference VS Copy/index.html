@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let name = "deep";
+        let name2 = name;
+        console.log(name, name2);
+        name2 = "piu";
+        console.log(name, name2);
+
+        let arr = ["a", "b", "c"];
+        let arr2 = arr;
+        console.log(arr, arr2);
+        
+        // slice will create a copy of original array
+        const arr3 = arr.slice();
+        
+        arr3[1] = "z";
+        console.log(arr, arr3);
+
+        // in case object it act as same
+        // here we need use assign
+
+        const person = {
+            name: 'deep',
+            age: 25
+        }
+        const person2 = Object.assign({}, person, {title: 'karmakar', age: 26});
+        
+    </script>
+</body>
+</html>

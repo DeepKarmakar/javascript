@@ -1,0 +1,435 @@
+What is JavaScript?
+js is a client side scripting language for making website interactive. we can manupulate element by js.
+JavaScript has also become a popular server-side language running in an environment called Node.js. This opened up a way for you to share common parts of your code between the browser and the server.
+
+
+
+
+
+Chapter 1. types and scope
+====================================
+
+1. how to define veriable, differnce b/w Let & Const
+-----------------------------------------------
+VAR:
+function nodeSimplified(){
+  var a =10;
+  console.log(a);  // output 10
+  if(true){
+   var a=20;
+   console.log(a); // output 20
+  }
+  console.log(a);  // output 20
+}
+
+In the above code, you can find, when the variable is updated inside the if loop, that the value of variable "a" updated 20 globally, hence outside the if loop the value persists. 
+
+
+LET:
+function nodeSimplified(){
+  let a =10;
+  console.log(a);  // output 10
+  if(true){
+   let a=20;
+   console.log(a); // output 20
+  }
+  console.log(a);  // output 10
+}
+
+function nodeSimplified(){
+  let a =10;
+  let a =20; //throws syntax error
+  console.log(a); 
+}
+
+let times = 4;
+if (times > 3) {
+    let hello = "say Hello instead";
+    console.log(hello);//"say Hello instead"
+}
+console.log(hello) // hello is not defined
+
+The let statement declares a local variable in a block scope. 
+
+
+CONST:
+function nodeSimplified(){
+  const MY_VARIABLE =10;
+  console.log(MY_VARIABLE);  //output 10
+  MY_VARIABLE =20;           //throws type error
+  console.log(MY_VARIABLE); 
+}
+const statement values can be assigned once and they cannot be reassigned. 
+
+
+
+2. Scope (block scope, global scope, lexical scope)
+----------------------------------------------------
+JavaScript has function scope: Each function creates a new scope.
+Scope determines the accessibility (visibility) of variables.
+Variables defined inside a function are not accessible (visible) from outside the function.
+
+Local:
+Variables declared within a JavaScript function, become LOCAL to the function. They can only be accessed from within the function.
+
+// code here can NOT use carName
+function myFunction() {
+    var carName = "Volvo";
+    // code here CAN use carName
+}
+
+Global:
+A global variable has global scope: All scripts and functions on a web page can access it. \
+
+var carName = "Volvo";
+// code here can use carName
+function myFunction() {
+    // code here can also use carName 
+}
+
+lexical:
+Lexical Scope means that in a nested group of functions, the inner functions have access to the variables and other resources of their parent scope. This means that the child functions are lexically bound to the execution context of their parents. Lexical scope is sometimes also referred to as Static Scope.
+
+Closures:
+The concept of closures is closely related to Lexical Scope, which we studied above. A Closure is created when an inner function tries to access the scope chain of its outer function meaning the variables outside of the immediate lexical scope. Closures contain their own scope chain, the scope chain of their parents and the global scope.
+
+A closure can not only access the variables defined in its outer function but also the arguments of the outer function.
+
+A closure can also access the variables of its outer function even after the function has returned.
+
+function greet() {
+    name = 'Hammad';
+    return function () {
+        console.log('Hi ' + name);
+    }
+}
+greet(); // nothing happens, no errors
+
+// the returned function from greet() gets saved in greetLetter
+greetLetter = greet();
+
+ // calling greetLetter calls the returned function from the greet() function
+greetLetter(); // logs 'Hi Hammad'
+
+
+3. synchronous nad asynchronous.
+--------------------------------------
+JavaScript is always synchronous and single-threaded. ... JavaScript is only asynchronous in the sense that it can make, for example, Ajax calls. The Ajax call will stop executing and other code will be able to execute until the call returns (successfully or otherwise), at which point the callback will run synchronously.
+
+4. Hoisting
+---------------------------
+in js var can be declared latter, assign first.
+a = 1;
+console.log(a); //1
+var a;
+
+note: Variables and constants declared with let or const are not hoisted!
+
+5. .call(), .apply() and .bind()     ---------->NOT CLEAR
+----------------------------------
+Call and Apply functions are used to change the context while calling a function.
+
+The difference between .call() and .apply() is that in Call, you pass the rest of the arguments as a list separated by a comma while apply allows you to pass the arguments in an array.
+
+function introduce(name, interest) {
+    console.log('Hi! I\'m '+ name +' and I like '+ interest +'.');
+    console.log('The value of this is '+ this +'.')
+}
+
+introduce('Hammad', 'Coding'); // the way you usually call it
+introduce.call(window, 'Batman', 'to save Gotham'); // pass the arguments one by one after the contextt
+introduce.apply('Hi', ['Bruce Wayne', 'businesses']); // pass the arguments in an array after the context
+
+// Output:
+// Hi! I'm Hammad and I like Coding.
+// The value of this is [object Window].
+// Hi! I'm Batman and I like to save Gotham.
+// The value of this is [object Window].
+// Hi! I'm Bruce Wayne and I like businesses.
+// The value of this is Hi.
+
+
+6. Data Types (primitive and reffrence)
+----------------------------------------
+primitive: 
+    Null
+    undefined
+    number
+    boolean
+    string
+    symbol
+
+reffrence
+    object
+    array
+    set
+    map
+
+Data types: A variable in JavaScript can contain any data. A variable can at one moment be a string and later receive a numeric value:
+// no error
+let message = "hello";
+message = 123456;
+
+number:
+The number type serves both for integer and floating point numbers
+special numeric values -> Infinity, -Infinity and NaN.
+alert( 1 / 0 ); // Infinity
+alert( "not a number" / 2 ); // NaN
+
+string:
+3 types of quotes.
+Double quotes: "Hello".
+Single quotes: 'Hello'. //those two are same.
+Backticks: `Hello`. -> They allow us to embed variables and expressions into a string by wrapping them in ${…}, for example:
+let name = "John";
+// embed a variable
+alert( `Hello, ${name}!` )
+
+boolean :
+boolean type has only two values: true and false.
+
+null:
+null is an assignment value. It can be assigned to a variable as a representation of no value:
+var TestVar = null;
+alert(TestVar); //shows null
+alert(typeof TestVar); //shows object
+
+undefined:
+undefined means a variable has been declared but has not yet been assigned a value, such as:
+var TestVar;
+alert(TestVar); //shows undefined
+alert(typeof TestVar); //shows undefined
+
+the only difference b/w them is type.
+null === undefined // false
+null == undefined // true
+null === null // true
+
+
+number: max int, float, sciling, Math operator
+
+prototype & inheritence?
+type conversion ->
+console.log(2 + '2') //22 + is use mathematical and also concat.
+console.log(2 - '2') //0 , cange '2' to int.
+
+
+array: push pop,loop, multi dimension array, 
+object: add,0 delete, modifiy, itterate, for of, how this work, distructuring, seal, freeze,
+
+7. Operator and statement
+----------------------------------
+Arithmetic Operators: + - * / % ++ --
+let a = 1, b = 1;
+alert( ++a ); // 2, prefix form returns the new value
+alert( b++ ); // 1, postfix form returns the old value
+alert( a ); // 2, incremented once
+alert( b ); // 2, incremented once
+
+Assignment Operators: = += -= /=
+let a = 2;
+let x = 1 + (a *= 2);
+a = 4 (multiplied by 2)
+x = 5 (calculated as 1 + 4)
+
+String Operators:
+
+Comparison Operators: == === != !== > < >= <=
+
+Conditional (Ternary) Operator: 
+
+Logical Operators: &&	 ||     !
+
+
+Interaction: alert, prompt, confirm
+======================================
+alert -> only ok
+prompt -> input & ok
+let age = prompt('How old are you?', 100);
+alert(`You are ${age} years old!`); // You are 100 years old!
+
+confirm -> ok & cancel
+
+
+
+
+Chapter 2. Function
+===========================
+//anonymous function expression
+var a = function() {
+    return 3;
+}
+ 
+//named function expression
+var a = function bar() {
+    return 3;
+}
+ 
+//self invoking function expression
+(function sayHello() {
+    alert("hello!");
+})();
+
+
+default paramiter:
+function multiply(a, b = 1) {
+  return a * b;
+}
+console.log(multiply(5));
+// expected output: 5
+
+
+spread operator:
+function sum(x, y, z) {
+  return x + y + z;
+}
+const numbers = [1, 2, 3];
+console.log(sum(...numbers));
+// expected output: 6
+console.log(sum.apply(null, numbers));
+// expected output: 6
+
+
+callback fun: A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action.
+// add() function is called with arguments a, b 
+// and callback, callback will be executed just  
+// after ending of add() function 
+function add(a, b , callback){ 
+document.write(`The sum of ${a} and ${b} is ${a+b}.` +"<br>"); 
+callback(); 
+} 
+// disp() function is called just 
+// after the ending of add() function  
+function disp(){ 
+document.write('This must be printed after addition'); 
+} 
+// Calling add() function 
+add(5,6,disp);     
+
+
+Chapter 3. OOPS in js
+===============================
+prototype inheritence not classical inheritance like java.
+prototype chain, classes, arrow fun, 
+
+
+Chapter 4. functional programming in js
+==========================================
+call, apply, bind, closures-> why it used?, function chaining, 
+map, reduce, filter, each, some, every, curry, 
+
+Js modules, 
+
+
+Chapter5. Async operator
+==============================
+setTimeout, setInterval, fetch, promise, async wait, tru catch,
+
+
+Chapter 6. Html & js
+=============================
+DOM, BOM, event bobling and capturing, 
+
+
+
+MASTER TOPIC:
+proxy reflection, symbols, regex, recursion, web worker, delegate, generators, 
+
+Ref: dr axel rauschmayer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Terms need to know:
+public, private and protected scopes.
+
+
+Some interview qtn:
+1. remove duplicate form array. [1,2,2,3]

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var x = 1;
+        if(3 === 3){
+            var x = 3;
+            console.log(x);            
+        }
+        function foo(){
+            var x = 2;
+            console.log(x);            
+        }
+        foo();
+        console.log(x);
+
+        a = 1;
+        console.log(a); //a is 
+        var a;
+        
+        console.clear(0);
+
+        ///////////////////////////////////////////////
+
+        var outerFun = function(){
+            var x1 = 5;
+            var nestedFun = function(){
+                var y1 = 6;
+                console.log(x1, y1);                
+            }
+            console.log(x1);                
+            return nestedFun;
+        }
+        var myFun = outerFun();
+        myFun();
+        // console.log(x1, y1); 
+
+        console.clear();
+
+        ///////////////////////////////////////////////
+
+        function name(){
+            let name = 'deep';
+            return function(){
+                console.log('hi ' + name);
+            }
+        }
+        var getName = name();
+        getName();
+        
+        const numbs = [1,2,3];
+        let xx = numbs.reduce((total, item) => {
+            return total + item;
+        });
+        console.log(xx);
+        
+
+    </script>
+</body>
+</html>

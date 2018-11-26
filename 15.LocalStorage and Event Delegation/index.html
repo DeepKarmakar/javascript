@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .wrap{
+            width: 350px;
+            margin: 0 auto;
+            border: 2px solid #ddd;
+            padding: 15px;
+        }  
+        ul{
+            list-style-position: inside;
+            margin-bottom: 15px; 
+            padding-bottom: 10px;
+        } 
+        li{
+            border-bottom: solid 1px #ddd;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul> 
+        </ul>
+        <form class="add-item">
+            <input type="text" placeholder="type here" name="item">
+            <input type="submit" value="add">
+        </form>
+    </div>
+
+    <script>
+        const addItems = document.querySelector('.add-item');
+        const item =  document.querySelector('[name="item"]');
+        const list = document.querySelector('ul');
+
+        const arr = JSON.parse(localStorage.getItem('items')) || [];
+
+        function additem(e){
+            e.preventDefault();
+            const text = item.value;
+            const obj = {
+                text: text,
+                done: false
+            };
+            if(item.value != ''){
+                arr.push(obj);
+                populateList(arr, list);
+                this.reset();
+                localStorage.setItem('items', JSON.stringify(arr));
+            }
+        }
+        
+        function populateList(plates = [], plateList){
+            plateList.innerHTML = plates.map((item, i) => {
+                return `
+                    <li>
+                        <label>
+                            <input type="checkbox" data-index=${i} ${item.done ? 'checked' : ''}> 
+                            ${item.text}
+                        </label>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        function toggleChk(e){
+            if(!e.target.matches('input')) return;
+            console.log(e.target);
+            const index = e.target.dataset.index;
+            arr[index].done = !arr[index].done;
+            localStorage.setItem('items', JSON.stringify(arr));            
+        }
+
+        addItems.addEventListener('submit', additem); 
+        populateList(arr, list);
+
+        list.addEventListener('click', toggleChk);
+
+    </script>
+</body>
+</html>
