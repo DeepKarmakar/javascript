@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .scroll{
+            max-height: 100%;
+            overflow: auto; 
+            border: 1px solid;
+            min-height: 150px;
+            position: relative;
+            height: 700px;
+        }
+        .scroll p{
+            margin-bottom: 10px; 
+        }
+        .loarder{
+            position: fixed;
+            padding: 15px;
+            text-align: center;
+            left: 128px;
+            display: none;
+            top: 345px;
+            background: #ddd;
+        }
+        img{
+            width: 315px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll"> 
+        <div class="items"></div>
+        <p class="loarder">Loading...</p>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        
+        $(document).ready(function(){
+            let target = $('.scroll');
+            let loader = $('.loarder');
+            let itemsheight;
+            let targetHeight;
+            let max = 45;
+            let offSet = 20;
+            let apiUrl = "http://api.adorable.io/avatars/"; 
+            
+
+            function randNumber(min, max){
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            } 
+             
+            function appnedItem(){ 
+                for (let index = max - 45; index < max; index++) { 
+                    target.children('.items').append(`<img src="${apiUrl + randNumber(0, 999)}">`);
+                }
+                max +=20;
+                
+                target.find('img:last').on('load', function(){ 
+                    itemsheight = target.children('.items').height();
+                    targetHeight = target.height();
+                    loader.hide();    
+                })                              
+            }
+            
+            function debounce(func, wait, immediate) {
+                var timeout;
+                return function() {
+                    var context = this, args = arguments;
+                    var later = function() {
+                        timeout = null;
+                        if (!immediate) func.apply(context, args);
+                    };
+                    var callNow = immediate && !timeout;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                    if (callNow) func.apply(context, args);
+                };
+            };
+
+            appnedItem();
+
+            var myEfficientFn = debounce(function() {
+                appnedItem();
+                loader.fadeOut();
+            }, 500);
+
+            target.on('scroll', function(){
+                if(this.scrollTop + targetHeight + offSet >= itemsheight) {
+                    loader.fadeIn();
+                    myEfficientFn();
+                }
+            });
+        })
+    </script>
+</body>
+</html>

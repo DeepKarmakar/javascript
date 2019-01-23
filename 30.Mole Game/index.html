@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .game{
+            width: 500px;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        .hole{
+            width: 30%;
+            float: left;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-bottom: 5px solid rgb(226, 147, 0);
+            margin: 1.5%;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s;
+        }
+        .mole{
+            width: calc(100% - 25px);
+            position: absolute;
+            margin: auto;
+            transition: all 0.5s;
+            height: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            cursor: pointer;
+            
+            background: red;
+        }
+        .hole.active .mole{
+            opacity: 1;
+
+            height: calc(100% - 25px);
+        }
+        #SomeElementYouWantToAnimate{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .scoreboard{
+            height: 35px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 35px;
+        }
+        .restart{
+            font-size: 25px;
+            padding: 5px 10px;
+            margin: 0 auto;
+        }
+        .heigh-score{
+            padding: 15px;
+            border-radius: 50%;
+            background: rgb(5, 131, 5);
+            color: #fff;
+            float: left;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="heigh-score"></div>
+    <div class="scoreboard"></div>
+    <div class="game">
+        <div class="hole hole1">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole2">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole3">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole4">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole5">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole6">
+            <div class="mole"></div>
+        </div>
+    </div>
+    <button class="restart">restart</button>
+ 
+
+
+    <script>
+
+        let hole = document.querySelectorAll('.hole');
+        let mole = document.querySelector('.mole');
+        let scoreboard = document.querySelector('.scoreboard');
+        let heighScoreBoard = document.querySelector('.heigh-score');
+        let restart = document.querySelector('.restart');
+        restart.style.display = 'none';
+        let lastHole;
+        let timeup = false;
+        let score = 0;
+        let gameTime = 10000;
+        let scores = [];
+
+        function getRandomNumber(min, max){
+            return Math.round(Math.random() * (max - min) + min);
+        }
+
+        function randomHole(hole){
+            let getRand =  getRandomNumber(1, hole.length);
+            let randHole = document.querySelector('.hole' + getRand); 
+            
+            if(randHole === lastHole){
+                randomHole(hole);
+            }
+            lastHole = randHole;
+
+            return randHole;
+        }
+
+        function peep(){
+            const time = getRandomNumber(200, 1000);
+            const getHole = randomHole(hole);
+            getHole.classList.add('active');
+            setTimeout(() => {
+                getHole.classList.remove('active');
+                if(!timeup) peep();
+            }, time)
+        }
+
+        function getScore(num){
+            scoreboard.textContent = num;
+        }
+
+        function startGame(){
+            timeup = false;
+            restart.style.display = 'none';
+            peep();
+            
+            setTimeout(() => {
+                timeup = true;
+                scores.push(score);
+                highestScore();
+                restart.style.display = 'block';
+
+            }, gameTime);
+        };
+
+        function highestScore(){
+            console.log(scores); 
+            let heighScore = Math.max(...scores);
+            console.log(heighScore);
+            
+            heighScoreBoard.textContent = heighScore;
+        };
+
+        startGame();
+
+        document.querySelector('.game').addEventListener('click', catchMole);
+        restart.addEventListener('click', restartGame);
+
+        function restartGame(){
+            score = 0;
+            getScore(score);
+            startGame();
+        }
+        let lastMole
+        function catchMole(e){
+            let targetMole = e.target;
+            if (targetMole.classList[0] == 'mole' && lastMole != targetMole) {
+                score ++;
+                getScore(score);
+            }    
+            lastMole = targetMole;    
+        }
+
+    </script>
+
+    <!-- requestAnimationFrame -->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .itemsOuter{
+            width: 1000px;
+            padding: 10px;
+            margin: 100px auto;
+            border: 1px solid #000;
+            height: 300px;
+            overflow: auto;
+        }
+        .itemsInner{
+            overflow: hidden;
+        }
+        .item{
+            width: 33.33%;
+            float: left;
+            height: 300px;
+            background: yellow;
+            border: solid 1px #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="itemsOuter">
+        <div class="itemsInner">
+            <div class="item item1"></div>
+            <div class="item item2"></div>
+            <div class="item item3"></div>
+            <div class="item item4"></div>
+            <div class="item item5"></div>
+            <div class="item item6"></div>
+            <div class="item item7"></div>
+            <div class="item item8"></div>
+            <div class="item item9"></div>
+            <div class="item item10"></div>
+        </div>
+    </div>
+
+    <script>
+        const itemOuterWrap = document.querySelector('.itemsOuter');
+        const itemInnerWrap = document.querySelector('.itemsInner');
+        const item = document.querySelectorAll('.item');
+        let itemWidth;
+        let itemsTotalWidth = 0;
+
+        let isDown = false;
+
+        itemOuterWrap.addEventListener('mousedown', (e) => {
+            isDown = true;
+            console.log(e);
+            
+        });
+
+        itemOuterWrap.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        itemOuterWrap.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        itemOuterWrap.addEventListener('mousemove', () => {
+            if(!isDown) return;
+            console.log(isDown);
+            
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        const itemsWidth = item.forEach(x => {
+            x.style.width = x.clientHeight + 'px';
+            itemsTotalWidth += x.clientHeight;
+        });
+        
+        itemInnerWrap.style.width = itemsTotalWidth + 'px';
+
+        itemOuterWrap.addEventListener('scroll', horizontalScroll);
+
+        function horizontalScroll(e){
+            console.log(window.scrollY);
+            
+        }
+
+        
+        
+        // const itemWidth = 
+
+    </script>
+</body>
+</html>

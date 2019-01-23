@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input[type="checkbox"]:checked + span{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-group">
+        <div class="item">
+            <label>
+                <input type="checkbox">
+                <span>check box text</span>
+            </label>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox">
+                <span>check box text</span>
+            </label>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox">
+                <span>check box text</span>
+            </label>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox">
+                <span>check box text</span>
+            </label>
+        </div>
+        <div class="item">
+            <label>
+                <input type="checkbox">
+                <span>check box text</span>
+            </label>
+        </div>
+    </div>
+
+
+    <script>
+        let allInput = document.querySelectorAll('input[type="checkbox"]');
+        
+        let lastChecked;
+        function handleCheck(e){ 
+            
+            let inBetween = false;
+            if(e.shiftKey && this.checked){
+                allInput.forEach(checkbox => {
+                    console.log(checkbox);
+                    if(checkbox === this || checkbox === lastChecked){
+                        inBetween =! inBetween;
+                    }
+                    if(inBetween){
+                        checkbox.checked = true;
+                    }
+                })
+            }
+            lastChecked = this;
+        }
+        
+        allInput.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
+        
+    </script>
+</body>
+</html>

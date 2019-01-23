@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="brands"></ul>
+    <script>
+        const brands = ['the plot in you', 'the devil wears pride', 'norma jean', 'the blend', 'say anything', 'the midway state', 'we came as roamans', 'counterparts', 'sleeper', 'a skylit drive', 'anything but here', 'an old deg'];
+
+        function strip(brandName){
+            return brandName.replace(/the|in|an|a/gi, '').trim();
+        }
+
+        const sortBrand = brands.sort((a,b) => strip(a) > strip(b) ? 1 : -1);
+
+        document.getElementById('brands').innerHTML = sortBrand.map(band => `<li>${band}</li>`).join('');
+
+        console.log(sortBrand);
+        
+        
+        
+    </script>
+</body>
+</html>

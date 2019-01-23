@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const people = [
+            { name: 'Wes', year: 1978 },
+            { name: 'Kaiti', year: 1980 },
+            { name: 'Maruti', year: 2008 },
+            { name: 'lui', year: 2018 }
+        ];
+
+        const comment = [
+            { text: 'comment 1', id: 456465 },
+            { text: 'comment 2', id: 123456 },
+            { text: 'comment 3', id: 879465 },
+            { text: 'comment 4', id: 541644 }
+        ];
+
+        const getyear = new Date().getFullYear();
+        
+        // check if any person equal or above 18
+        // const isAdoult = people.some(function(person){
+        //     if(new Date().getFullYear() - person.year >= 18){
+        //         return true;
+        //     }
+        // });
+        
+        // Using arrow function  using  "some"
+        const isAdoult = people.some(person => (getyear - person.year >= 18));
+        console.log(isAdoult);
+
+        // check is every one is obove 19   using "every"
+        const allAdoult = people.every(person => (getyear - person.year >= 18));
+        console.log(allAdoult);
+
+        // find if that item is exist
+        const findComment = comment.find(person => (person.id === 879465));
+        console.log(findComment);
+        
+        // The splice() method adds/removes items to/from an array, and returns the removed item(s).
+        // Note: This method changes the original array.
+        //array.splice(index, howmany, item1, ....., itemX)
+
+        comment.splice(0, 1);  //remove the first item of the array
+        comment.splice(2, 0, "Lemon", "Kiwi"); //add "Lemon" and "Kiwi" to this array
+        
+        
+        
+    </script>
+</body>
+</html>

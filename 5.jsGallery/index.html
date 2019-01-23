@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .panels-wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            height: 100vh;
+        }
+        .panel{
+            flex: 1;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }  
+        .open{
+            flex: 5;
+        }
+        .open-active{
+            flex: 1;
+        }
+        .panel *{
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } 
+    </style>
+</head>
+<body>
+    <div class="panels-wrapper">
+        <div class="panel" style="background-image: url('img1.jpg')">
+            <p>lorem</p>
+            <h1>ipsum</h1>
+            <p>dolar</p>
+        </div>
+        <div class="panel" style="background-image: url('img2.jpg')">
+            <p>lorem</p>
+            <h1>ipsum</h1>
+            <p>dolar</p>
+        </div>
+        <div class="panel" style="background-image: url('img3.jpg')">
+            <p>lorem</p>
+            <h1>ipsum</h1>
+            <p>dolar</p>
+        </div>
+        <div class="panel" style="background-image: url('img4.jpg')">
+            <p>lorem</p>
+            <h1>ipsum</h1>
+            <p>dolar</p>
+        </div>
+        <div class="panel" style="background-image: url('img5.jpg')">
+            <p>lorem</p>
+            <h1>ipsum</h1>
+            <p>dolar</p>
+        </div>
+    </div>
+
+    <script>
+        var panel = document.querySelectorAll('.panel');
+        panel.forEach(panel => panel.addEventListener('click', enlargePanle));
+        panel.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+        function enlargePanle(){
+            this.classList.toggle('open');
+        }
+
+        function toggleActive(e){
+            console.log(e.propertyName);
+            if(e.propertyName.includes('flex')){
+                // this.classList.toggle('open-active');
+            }
+            
+        }
+    </script>
+</body>
+</html>
