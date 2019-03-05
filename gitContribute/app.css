@@ -1,0 +1,23 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    display: inline-block;
+    list-style: none;
+}
+ul li{
+    float: left;
+}
+ul li a{
+    padding: 7px;
+}
+ul li a.active{
+    color: red;
+}
+.tab-content-holder > div{
+    display: none;
+}
+.tab-content-holder > div.active{
+    display: block;
+}
